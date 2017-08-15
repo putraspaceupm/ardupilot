@@ -717,9 +717,8 @@ void Plane::update_flight_mode(void)
         channel_roll->servo_out = channel_roll->pwm_to_angle();
         channel_pitch->servo_out = channel_pitch->pwm_to_angle();
         steering_control.steering = steering_control.rudder = channel_rudder->pwm_to_angle();
-		releasestate();
-		pump_trigger();
-		sma_activation();
+		// Start HAB specific mission
+		HABmission();
         break;
         //roll: -13788.000,  pitch: -13698.000,   thr: 0.000, rud: -13742.000
 
@@ -746,6 +745,21 @@ void Plane::update_flight_mode(void)
         // handled elsewhere
         break;
     }
+}
+
+void Plane::HABmission()
+{
+	//release high altitude balloon at descend
+	releasestate();
+	
+	// trigger pump for air sampling experiment (currently not in use)
+	//pump_trigger();
+	
+	//Trigger SMA wire experiment (currently not in used)
+	//sma_activation();
+	
+	//Release stratocacher module (used in MRSM competition)
+	stratocacherRelease();
 }
 
 void Plane::stratocacherRelease()
@@ -848,7 +862,7 @@ void Plane::releasestate()
 }
 
 //void Plane::
-/*void Plane::pump_trigger()
+void Plane::pump_trigger()
 {		
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -883,7 +897,7 @@ void Plane::releasestate()
 
 	   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-}*/
+}
 
 void Plane::sma_activation()
 {      
