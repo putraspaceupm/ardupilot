@@ -1089,16 +1089,6 @@ private:
     // support for AP_Avoidance custom flight mode, AVOID_ADSB
     bool avoid_adsb_init(bool ignore_checks);
     void avoid_adsb_run();
-	
-	//high altitude balloon specific function
-	void update_HABmission();
-	void update_releaseatmax();
-	void update_stratocacherRelease();
-	void update_releasestate();
-	void update_pump_trigger();
-	void update_sma_activation();
-	bool descendpass;
-    int maxalt=0;
 
 public:
     void mavlink_delay_cb();

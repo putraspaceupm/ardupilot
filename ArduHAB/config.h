@@ -385,25 +385,3 @@
 # define HAVE_PX4_MIXER 0
 #endif
 
-/////////////////////////////////////////////////////////////////////////////////
-//Release mechanism
-#ifndef RELEASE_ALTITUDE_DEFAULT
- # define RELEASE_ALTITUDE_DEFAULT      1000     // default value for my new parameter
-#endif
-
-//Release mechanism descend detection
-#ifndef DESCEND_RANGE_DEFAULT
- # define DESCEND_RANGE_DEFAULT      200     // default value for my new parameter
-#endif 
-
-//Release stratocacher mechanism altitude
-#ifndef STRATOCACHER_ALT_DEFAULT
- # define STRATOCACHER_ALT_DEFAULT      200     // default value for my new parameter
-#endif 
-
-//Release payload at max desired altitude mechanism altitude
-#ifndef RELEASE_ALTITUDE_AT_MAX_DEFAULT
- # define RELEASE_ALTITUDE_AT_MAX_DEFAULT      200     // default value for my new parameter
-#endif 
-
-
