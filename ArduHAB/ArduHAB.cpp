@@ -869,6 +869,7 @@ void Plane::update_releasestate()
 
 		int alt_temp=current_loc.alt;
 		int descend_range = g.descend_alt_range*100;
+		//int maxalt=0;
 		//int descend_range = 200*100;
 		if(alt_temp>maxalt)
 		{

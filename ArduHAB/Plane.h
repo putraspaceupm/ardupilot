@@ -1097,6 +1097,8 @@ private:
 	void update_releasestate();
 	void update_pump_trigger();
 	void update_sma_activation();
+	bool descendpass;
+    int maxalt=0;
 
 public:
     void mavlink_delay_cb();
