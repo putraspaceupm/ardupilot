@@ -818,7 +818,7 @@ void Plane::update_releaseatmax()
 		//check the altitude during ascend if Payload desired max Release Altitude reached then release
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 	    //int maxreach_releasealt = g.release_altitude_at_max*100;
-		int maxreach_releasealt = 100*100
+		int maxreach_releasealt = 100*100 ;
 		int cur_alt = current_loc.alt;
 
 		if(cur_alt > maxreach_releasealt)
