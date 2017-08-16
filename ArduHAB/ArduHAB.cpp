@@ -817,10 +817,10 @@ void Plane::update_releaseatmax()
 		//Main payload emergency release at max altitude || Last Update : 16/8/2017
 		//check the altitude during ascend if Payload desired max Release Altitude reached then release
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-	    int maxreach_releasealt = g.maxreach_release_alt*100;
+	    int maxreach_releasealt = g.release_altitude_at_max*100;
 		int cur_alt = current_loc.alt;
 
-		if(cur_alt > stratocacher_releasealt)
+		if(cur_alt > maxreach_releasealt)
 		{
 			hal.rcout->write(CH_5,1800);  // payload release channel 
 		}
