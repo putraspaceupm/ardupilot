@@ -1124,34 +1124,6 @@ const AP_Param::Info Plane::var_info[] = {
     // @Group: LAND_
     // @Path: ../libraries/AP_Landing/AP_Landing.cpp
     GOBJECT(landing, "LAND_", AP_Landing),
-	
-	// @Param: RELEASE_ALTITUDE
-    // @DisplayName: Mechanism release altitude
-    // @Description: The altitude is altitude for release of the mechanism IN CM.
-    // @Range: -1000000 1000000
-    // @User: Standard
-    GSCALAR(release_altitude, "RELEASE_ALTITUDE", RELEASE_ALTITUDE_DEFAULT),
-	
-	// @Param: DESCEND_ALT_RANGE
-    // @DisplayName: Mechanism descend altitude
-    // @Description: The altitude is altitude for release of the mechanism to start initialize IN M.- it will go into cruise mode as dummy mode.
-    // @Range: -1000000 1000000
-    // @User: Standard
-    GSCALAR(descend_alt_range, "DESCEND_RANGE",DESCEND_RANGE_DEFAULT),
-	
-	// @Param: STRATOCACHER_ALT
-    // @DisplayName: Mechanism release altitude for stratocacher
-    // @Description: The altitude is altitude for release of the mechanism to start initialize IN M.- it will go into cruise mode as dummy mode.
-    // @Range: -1000000 1000000
-    // @User: Standard
-    //GSCALAR(stratocacher_release_alt, "STRATOCACHER_ALT",STRATOCACHER_ALT_DEFAULT),
-	
-	// @Param: RELEASE_ALTITUDE_AT_MAX
-    // @DisplayName: Mechanism release altitude
-    // @Description: The altitude is altitude for release of the mechanism IN CM.
-    // @Range: -1000000 1000000
-    // @User: Standard
-    //GSCALAR(release_altitude_at_max, "RELEASE_ALTITUDE_AT_MAX", RELEASE_ALTITUDE_AT_MAX_DEFAULT),
 
     AP_VAREND
 };
