@@ -898,8 +898,8 @@ void Plane::update_releasestate()
 			rc_5.calc_pwm();
 			rc_5.output(); */
 			//run parachute release
-			control_mode=AUTO;
-			mission.start();
+			//control_mode=AUTO;
+			//mission.start();
 			hal.rcout->write(CH_7,1100); 
 		}
 
