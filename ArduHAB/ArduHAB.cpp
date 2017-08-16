@@ -786,7 +786,7 @@ void Plane::update_flight_mode(void)
     }
 }
 
-void Plane::updateHABmission()
+void Plane::update_HABmission()
 {
 	//1. release high altitude balloon at descend
 	update_releasestate();
