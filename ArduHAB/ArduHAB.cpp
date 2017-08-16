@@ -826,7 +826,7 @@ void Plane::update_releaseatmax()
 		}
 		else 
 		{
-			hal.rcout->write(CH_8,1100);  // payload lock
+			hal.rcout->write(CH_5,1100);  // payload lock
 		}
 }
 
