@@ -287,8 +287,8 @@ public:
 		k_param_descend_alt_range,
 		
 		//added on 16082017 for HAB mission for payload and stratocacher release
-		k_param_stratocacher_release_alt,
-		k_param_release_altitude_at_max,
+		//k_param_stratocacher_release_alt,
+		//k_param_release_altitude_at_max,
 		//k_param_release_activate_altitude,
 
         //
@@ -519,8 +519,8 @@ public:
 	 //release control mechanism
     AP_Int32 release_altitude;				//this is to set altitude for release  13/5/2015
 	AP_Int32 descend_alt_range;
-	AP_Int32 stratocacher_release_alt;
-	AP_Int32 release_altitude_at_max;
+	//AP_Int32 stratocacher_release_alt;
+	//AP_Int32 release_altitude_at_max;
 };
 
 /*

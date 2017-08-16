@@ -817,7 +817,8 @@ void Plane::update_releaseatmax()
 		//Main payload emergency release at max altitude || Last Update : 16/8/2017
 		//check the altitude during ascend if Payload desired max Release Altitude reached then release
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-	    int maxreach_releasealt = g.release_altitude_at_max*100;
+	    //int maxreach_releasealt = g.release_altitude_at_max*100;
+		int maxreach_releasealt = 100*100
 		int cur_alt = current_loc.alt;
 
 		if(cur_alt > maxreach_releasealt)
@@ -838,7 +839,8 @@ void Plane::update_stratocacherRelease()
 		//Stratocacher Release Mechanism || Last Update : 10/8/2017
 		//check the altitude during descend if Stratocacher Release Altitude reached then release
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-	    int stratocacher_releasealt = g.stratocacher_release_alt*100;
+	    //int stratocacher_releasealt = g.stratocacher_release_alt*100;
+		int stratocacher_releasealt = 100*100;
 		int cur_alt = current_loc.alt;
 
 		if(cur_alt > stratocacher_releasealt)

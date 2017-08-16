@@ -1144,14 +1144,14 @@ const AP_Param::Info Plane::var_info[] = {
     // @Description: The altitude is altitude for release of the mechanism to start initialize IN M.- it will go into cruise mode as dummy mode.
     // @Range: -1000000 1000000
     // @User: Standard
-    GSCALAR(stratocacher_release_alt, "STRATOCACHER_ALT",STRATOCACHER_ALT_DEFAULT),
+    //GSCALAR(stratocacher_release_alt, "STRATOCACHER_ALT",STRATOCACHER_ALT_DEFAULT),
 	
 	// @Param: RELEASE_ALTITUDE_AT_MAX
     // @DisplayName: Mechanism release altitude
     // @Description: The altitude is altitude for release of the mechanism IN CM.
     // @Range: -1000000 1000000
     // @User: Standard
-    GSCALAR(release_altitude_at_max, "RELEASE_ALTITUDE_AT_MAX", RELEASE_ALTITUDE_AT_MAX_DEFAULT),
+    //GSCALAR(release_altitude_at_max, "RELEASE_ALTITUDE_AT_MAX", RELEASE_ALTITUDE_AT_MAX_DEFAULT),
 
     AP_VAREND
 };
