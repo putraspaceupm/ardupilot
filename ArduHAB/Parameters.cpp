@@ -1130,28 +1130,28 @@ const AP_Param::Info Plane::var_info[] = {
     // @Description: The altitude is altitude for release of the mechanism IN CM.
     // @Range: -1000000 1000000
     // @User: Standard
-    GSCALAR(release_altitude, "RELEASE_ALTITUDE", RELEASE_ALTITUDE_DEFAULT),
+    GSCALAR(release_altitude, "RELEASE_ALTITUDE",100), //RELEASE_ALTITUDE_DEFAULT),
 	
 	// @Param: DESCEND_ALT_RANGE
     // @DisplayName: Mechanism descend altitude
     // @Description: The altitude is altitude for release of the mechanism to start initialize IN M.- it will go into cruise mode as dummy mode.
     // @Range: -1000000 1000000
     // @User: Standard
-    GSCALAR(descend_alt_range, "DESCEND_RANGE",DESCEND_RANGE_DEFAULT),
+    GSCALAR(descend_alt_range, "DESCEND_RANGE",100), //DESCEND_RANGE_DEFAULT),
 	
 	// @Param: STRATOCACHER_ALT
     // @DisplayName: Mechanism release altitude for stratocacher
     // @Description: The altitude is altitude for release of the mechanism to start initialize IN M.- it will go into cruise mode as dummy mode.
     // @Range: -1000000 1000000
     // @User: Standard
-    //GSCALAR(stratocacher_release_alt, "STRATOCACHER_ALT",STRATOCACHER_ALT_DEFAULT),
+    GSCALAR(stratocacher_release_alt, "STRATOCACHER_ALT",100),//STRATOCACHER_ALT_DEFAULT),
 	
 	// @Param: RELEASE_ALTITUDE_AT_MAX
     // @DisplayName: Mechanism release altitude
     // @Description: The altitude is altitude for release of the mechanism IN CM.
     // @Range: -1000000 1000000
     // @User: Standard
-    //GSCALAR(release_altitude_at_max, "RELEASE_ALTITUDE_AT_MAX", RELEASE_ALTITUDE_AT_MAX_DEFAULT),
+    GSCALAR(release_altitude_at_max, "RELEASE_ALT_MAX",100), //RELEASE_ALTITUDE_AT_MAX_DEFAULT),
 
     AP_VAREND
 };
@@ -1318,15 +1318,15 @@ void Plane::load_parameters(void)
     g2.servo_channels.set_default_function(CH_3, SRV_Channel::k_throttle);
     g2.servo_channels.set_default_function(CH_4, SRV_Channel::k_rudder);
         
-    const uint8_t old_rc_keys[14] = { Parameters::k_param_rc_1_old,  Parameters::k_param_rc_2_old,
+    /* const uint8_t old_rc_keys[14] = { Parameters::k_param_rc_1_old,  Parameters::k_param_rc_2_old,
                                       Parameters::k_param_rc_3_old,  Parameters::k_param_rc_4_old,
                                       Parameters::k_param_rc_5_old,  Parameters::k_param_rc_6_old,
                                       Parameters::k_param_rc_7_old,  Parameters::k_param_rc_8_old,
                                       Parameters::k_param_rc_9_old,  Parameters::k_param_rc_10_old,
                                       Parameters::k_param_rc_11_old, Parameters::k_param_rc_12_old,
-                                      Parameters::k_param_rc_13_old, Parameters::k_param_rc_14_old };
+                                      Parameters::k_param_rc_13_old, Parameters::k_param_rc_14_old }; */
     const uint16_t old_aux_chan_mask = 0x3FF0;
-    SRV_Channels::upgrade_parameters(old_rc_keys, old_aux_chan_mask, &rcmap);
+    //SRV_Channels::upgrade_parameters(old_rc_keys, old_aux_chan_mask, &rcmap);
 
     // possibly convert elevon and vtail mixers
     convert_mixers();

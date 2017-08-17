@@ -246,8 +246,9 @@ public:
 
         //
         // 170: Radio settings - all unused now
-		k_param_rc_1_old = 170,
-        k_param_rc_2_old,
+        //
+        k_param_rc_1_old = 170,
+        /* k_param_rc_2_old,
         k_param_rc_3_old,
         k_param_rc_4_old,
         k_param_rc_5_old,
@@ -256,10 +257,13 @@ public:
         k_param_rc_8_old,
         k_param_rc_9_old,
         k_param_rc_10_old,
-        k_param_rc_11_old, 
-		
+        k_param_rc_11_old, */
+		k_param_release_altitude,
+		k_param_descend_alt_range,
+		k_param_stratocacher_release_alt,
+		k_param_release_altitude_at_max,
 
-        k_param_throttle_min,
+        k_param_throttle_min = 181,
         k_param_throttle_max,
         k_param_throttle_fs_enabled,
         k_param_throttle_fs_value,
@@ -278,18 +282,8 @@ public:
         k_param_long_fs_timeout,
         k_param_rc_13_old,
         k_param_rc_14_old,
-        k_param_tuning,
+        k_param_tuning, 
 		
-				//added for release mechanism altitude 13/5/2015
-		k_param_release_altitude,
-		
-		//added for more robust trigger system 13/4/2016
-		k_param_descend_alt_range,
-		
-		//added on 16082017 for HAB mission for payload and stratocacher release
-		//k_param_stratocacher_release_alt,
-		//k_param_release_altitude_at_max,
-		//k_param_release_activate_altitude,
 
         //
         // 200: Feed-forward gains
@@ -516,11 +510,12 @@ public:
     AP_Int16 gcs_pid_mask;
     AP_Int8 parachute_channel;
 	
-	 //release control mechanism
-    AP_Int32 release_altitude;				//this is to set altitude for release  13/5/2015
-	AP_Int32 descend_alt_range;
-	//AP_Int32 stratocacher_release_alt;
-	//AP_Int32 release_altitude_at_max;
+	
+	//ArduHAB variable parameter
+	AP_Int16 release_altitude;
+	AP_Int16 descend_alt_range;
+	AP_Int16 stratocacher_release_alt;
+	AP_Int16 release_altitude_at_max;
 };
 
 /*
@@ -559,8 +554,6 @@ public:
 
     // mask of channels to do manual pass-thru for
     AP_Int32 manual_rc_mask;
-	
-	
 };
 
 extern const AP_Param::Info var_info[];
