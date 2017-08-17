@@ -958,8 +958,8 @@ void Plane::update_releasestate()
 		//int alt_temp = barometer.get_altitude(); //get data from barometer
 		int descend_range = g.descend_alt_range*100;
 		//int descend_range = 100*100;
-		//int release_alt = g.release_altitude*100;
-		int release_alt = 100*100;
+		int release_alt = g.release_altitude*100;
+		//int release_alt = 100*100;
 		//int maxalt=0;
 		//int descend_range = 200*100;
 		if(alt_temp>maxalt)
