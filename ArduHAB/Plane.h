@@ -793,6 +793,11 @@ private:
     AP_Tuning_Plane tuning;
 
     static const struct LogStructure log_structure[];
+	
+	
+	//arduHAB specific variable
+	int maxalt = 0;
+	bool descendpass = false;
     
 #if CONFIG_HAL_BOARD == HAL_BOARD_PX4
     // the crc of the last created PX4Mixer
@@ -1085,6 +1090,12 @@ private:
     void accel_cal_update(void);
     void update_soft_armed();
     void update_soaring();
+	
+	//ArduHAB specific
+	void update_HABmission();
+	void update_stratocacherRelease();
+	void update_releaseatmax();
+	void update_releasestate();
 
     // support for AP_Avoidance custom flight mode, AVOID_ADSB
     bool avoid_adsb_init(bool ignore_checks);

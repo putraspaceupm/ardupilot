@@ -747,9 +747,10 @@ void Plane::update_flight_mode(void)
         break;
 
     case MANUAL:
-        SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in_zero_dz());
-        SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch->get_control_in_zero_dz());
-        steering_control.steering = steering_control.rudder = channel_rudder->get_control_in_zero_dz();
+        //SRV_Channels::set_output_scaled(SRV_Channel::k_aileron, channel_roll->get_control_in_zero_dz());
+        //SRV_Channels::set_output_scaled(SRV_Channel::k_elevator, channel_pitch->get_control_in_zero_dz());
+        //steering_control.steering = steering_control.rudder = channel_rudder->get_control_in_zero_dz();
+		update_HABmission();
         break;
 
     case QSTABILIZE:
@@ -865,6 +866,143 @@ void Plane::update_navigation()
         break;
     }
 }
+
+void Plane::update_HABmission()
+{
+ 	//1. release high altitude balloon at descend
+	update_releasestate();
+	
+	//2. Release stratocacher module (used in MRSM competition)
+	update_stratocacherRelease();
+
+	//3. Release payload at max reached altitude
+	update_releaseatmax(); 
+	hal.rcout->write(1,1800);
+	hal.rcout->write(2,1800);
+	hal.rcout->write(3,1800);
+	hal.rcout->write(10,1800);
+}
+
+//HAB mission servo definition - 16082017
+/////////////////////////////////////////////////////
+// CH5 - Release payload
+// CH6 - Release stratocacher
+// CH7 - Release parachute
+/////////////////////////////////////////////////////
+
+void Plane::update_releaseatmax()
+{
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Main payload emergency release at max altitude || Last Update : 16/8/2017
+		//check the altitude during ascend if Payload desired max Release Altitude reached then release
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //int maxreach_releasealt = g.release_altitude_at_max*100;
+		int maxreach_releasealt = 100*100 ;
+		int cur_alt = current_loc.alt;
+
+		if(cur_alt > maxreach_releasealt)
+		{
+			hal.rcout->write(CH_5,1800);  // payload release channel 
+		}
+		else 
+		{
+			hal.rcout->write(CH_5,1100);  // payload lock
+		}
+}
+
+void Plane::update_stratocacherRelease()
+{
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Stratocacher Release Mechanism || Last Update : 10/8/2017
+		//check the altitude during descend if Stratocacher Release Altitude reached then release
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+	    //int stratocacher_releasealt = g.stratocacher_release_alt*100;
+		int stratocacher_releasealt = 100*100;
+		int cur_alt = current_loc.alt;
+
+		if(cur_alt > stratocacher_releasealt)
+		{
+			hal.rcout->write(CH_6,1800);  // make sure the channel | release stratocacher 
+		}
+		else 
+		{
+			hal.rcout->write(CH_6,1100);  // Stratocaher lock 
+		}
+}
+
+void Plane::update_releasestate()
+{
+	
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		//Parachute eject and Release mechanism 11/8/2017 
+		//check the altitude difference between max altitude, if descend to descend distance release payload
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		//get maximum altitude value to check for descend condition
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//alt_temp=gps.location().alt;
+		//int alt_temp=gps.location().alt;
+	    // 'g.' means that it got from declared parameters
+
+		//int alt_temp=current_loc.alt;
+		int alt_temp = barometer.get_altitude(); //get data from barometer
+		//int descend_range = g.descend_alt_range*100;
+		int descend_range = 100*100;
+		//int release_alt = g.release_altitude*100;
+		int release_alt = 100*100;
+		//int maxalt=0;
+		//int descend_range = 200*100;
+		if(alt_temp>maxalt)
+		{
+		maxalt=alt_temp;
+		}
+		if(alt_temp<maxalt-descend_range)
+		{ 
+		descendpass=true;
+		}
+		
+		
+		//RC_Channel_aux::set_radio(RC_Channel_aux::channel_function(7),g.release_altitude);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		//check if altitude reach release payload
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		if(gps.location().alt<release_alt && descendpass)
+		{
+			//RC_Channel_aux::set_radio_to_max(RC_Channel_aux::channel_function(6));
+			//RC_Channel_aux::set_radio_to_max(RC_Channel_aux::k_cam_trigger);//x 1900
+			//hal.rcout->write(CH_5,1100);												//moved to auto mode function to make sure release is trigger after auto is on
+			//RC_Channel_i::set_radio(RC_Channel_i::channel_function(4),1235);
+			// rc_5.set_pwm(1111);
+			// rc_5.set_type(RC_CHANNEL_TYPE_RANGE);
+			//rc_5.enable_out(); 
+			//rc_5.servo_out = 1111;
+			//rc_5.calc_pwm();
+			//rc_5.output(); 
+			//run parachute release
+			//control_mode=AUTO;
+			//mission.start();
+			hal.rcout->write(CH_7,1100); 
+		}
+
+		if(gps.location().alt>release_alt)  
+		{
+			//RC_Channel_aux::set_radio_to_min(RC_Channel_aux::channel_function(6));
+			//RC_Channel_aux::set_radio(RC_Channel_aux::channel_function(6),1666);//x 1000
+			hal.rcout->write(CH_7,1900);   //Payload Release Lock
+		}
+		
+		if(!descendpass) // default lock
+			hal.rcout->write(CH_7,1900);  //Payload Release Lock
+			//RC_Channel_aux::set_radio(RC_Channel_aux::channel_function(6),1777);//x 1000
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
+
 
 /*
   set the flight stage
