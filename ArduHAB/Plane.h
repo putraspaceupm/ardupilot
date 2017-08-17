@@ -798,6 +798,7 @@ private:
 	//arduHAB specific variable
 	int maxalt = 0;
 	bool descendpass = false;
+	bool runonce = false;
     
 #if CONFIG_HAL_BOARD == HAL_BOARD_PX4
     // the crc of the last created PX4Mixer
@@ -1096,6 +1097,7 @@ private:
 	void update_stratocacherRelease();
 	void update_releaseatmax();
 	void update_releasestate();
+	
 
     // support for AP_Avoidance custom flight mode, AVOID_ADSB
     bool avoid_adsb_init(bool ignore_checks);

@@ -764,7 +764,7 @@ void Plane::servos_output(void)
     
     SRV_Channels::calc_pwm();
 
-    SRV_Channels::output_ch_all();
+    //SRV_Channels::output_ch_all();
     
     hal.rcout->push();
 

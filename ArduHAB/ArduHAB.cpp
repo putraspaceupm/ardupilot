@@ -877,10 +877,15 @@ void Plane::update_HABmission()
 
 	//3. Release payload at max reached altitude
 	update_releaseatmax(); 
-	hal.rcout->write(1,1800);
-	hal.rcout->write(2,1800);
-	hal.rcout->write(3,1800);
-	hal.rcout->write(10,1800);
+	
+	if(!runonce)
+	{
+		hal.rcout->enable_ch(CH_5);
+		hal.rcout->enable_ch(CH_6);
+		hal.rcout->enable_ch(CH_7);
+		hal.rcout->enable_ch(CH_8);
+		runonce = true;
+	}
 }
 
 //HAB mission servo definition - 16082017
@@ -896,8 +901,8 @@ void Plane::update_releaseatmax()
 		//Main payload emergency release at max altitude || Last Update : 16/8/2017
 		//check the altitude during ascend if Payload desired max Release Altitude reached then release
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-	    //int maxreach_releasealt = g.release_altitude_at_max*100;
-		int maxreach_releasealt = 100*100 ;
+	    int maxreach_releasealt = g.release_altitude_at_max*100;
+		//int maxreach_releasealt = 100*100 ;
 		int cur_alt = current_loc.alt;
 
 		if(cur_alt > maxreach_releasealt)
@@ -908,6 +913,7 @@ void Plane::update_releaseatmax()
 		{
 			hal.rcout->write(CH_5,1100);  // payload lock
 		}
+		hal.rcout->push();
 }
 
 void Plane::update_stratocacherRelease()
@@ -916,8 +922,8 @@ void Plane::update_stratocacherRelease()
 		//Stratocacher Release Mechanism || Last Update : 10/8/2017
 		//check the altitude during descend if Stratocacher Release Altitude reached then release
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
-	    //int stratocacher_releasealt = g.stratocacher_release_alt*100;
-		int stratocacher_releasealt = 100*100;
+	    int stratocacher_releasealt = g.stratocacher_release_alt*100;
+		//int stratocacher_releasealt = 100*100;
 		int cur_alt = current_loc.alt;
 
 		if(cur_alt > stratocacher_releasealt)
@@ -928,6 +934,8 @@ void Plane::update_stratocacherRelease()
 		{
 			hal.rcout->write(CH_6,1100);  // Stratocaher lock 
 		}
+		
+		hal.rcout->push();
 }
 
 void Plane::update_releasestate()
@@ -946,10 +954,10 @@ void Plane::update_releasestate()
 		//int alt_temp=gps.location().alt;
 	    // 'g.' means that it got from declared parameters
 
-		//int alt_temp=current_loc.alt;
-		int alt_temp = barometer.get_altitude(); //get data from barometer
-		//int descend_range = g.descend_alt_range*100;
-		int descend_range = 100*100;
+		int alt_temp=current_loc.alt;
+		//int alt_temp = barometer.get_altitude(); //get data from barometer
+		int descend_range = g.descend_alt_range*100;
+		//int descend_range = 100*100;
 		//int release_alt = g.release_altitude*100;
 		int release_alt = 100*100;
 		//int maxalt=0;
@@ -998,7 +1006,7 @@ void Plane::update_releasestate()
 			hal.rcout->write(CH_7,1900);  //Payload Release Lock
 			//RC_Channel_aux::set_radio(RC_Channel_aux::channel_function(6),1777);//x 1000
 		
-		
+		hal.rcout->push();
 		//////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
